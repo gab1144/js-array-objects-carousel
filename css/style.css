@@ -1,5 +1,7 @@
 :root {
-  --thumbnails-height: 100px;
+  --thumbnails-height: 160px;
+  --img-width: 1160px;
+  --img-height: 500px;
 }
 
 * {
@@ -23,7 +25,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  width: 700px;
+  width: var(--img-width);
 }
 
 /***** bottoni chevron *****/
@@ -56,15 +58,13 @@ body {
 /***** descrizione immagine *****/
 .slider {
   position: relative;
-  height: 300px;
+  height: var(--img-height);
 }
 
 .image-description{
   position: absolute;
   right: 0;
   top: 0;
-  height: 100px;
-  width: 300px;
   color: white;
   padding: 20px;
   text-align: right;
@@ -77,8 +77,8 @@ body {
 
 /***** immagini *****/
 .container img {
-  width: 700px;
-  height: 300px;
+  width: var(--img-width);
+  height: var(--img-height);
   object-fit: cover;
 }
 /***** /immagini *****/
