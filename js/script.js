@@ -48,18 +48,22 @@ imageSlider(images[counterImages]);
 thumbnailItems[counterImages].classList.add('active');
 
 let autoplay;
+let directionAutoplay= true;
 setAutoplay();
-container.addEventListener('mouseover', clearAutoplay);
-
-container.addEventListener("mouseout", setAutoplay);
 
 next.addEventListener('click', nextImage);
 
 prev.addEventListener('click', prevImage);
 
+document.getElementById("reverse").addEventListener('click', reverse);
+
 
 function setAutoplay() {
   autoplay = setInterval(nextImage, 1000);
+}
+
+function setAutoplayReverse() {
+  autoplay = setInterval(prevImage, 1000);
 }
 
 function clearAutoplay() {
@@ -97,7 +101,7 @@ function nextImage() {
 
 function prevImage() {
   thumbnailItems[counterImages].classList.remove('active');
-  //mostra l'immagine successiva
+  //mostra l'immagine precedente
   if(counterImages === 0) {
     counterImages=images.length - 1;
     imageSlider(images[counterImages]);
@@ -105,5 +109,16 @@ function prevImage() {
   } else {
     imageSlider(images[--counterImages]);
     thumbnailItems[counterImages].classList.add('active');
+  }
+}
+
+function reverse() {
+  clearAutoplay();
+  if(directionAutoplay) {
+    setAutoplayReverse();
+    directionAutoplay = false;
+  } else {
+    setAutoplay();
+    directionAutoplay = true;
   }
 }

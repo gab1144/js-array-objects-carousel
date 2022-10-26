@@ -12,11 +12,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   height: 100vh;
 }
 
 .container {
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 700px;
@@ -83,6 +83,7 @@
   height: var(--thumbnails-height);
   background-color: black;
   display: flex;
+  position: relative;
 }
 
 .thumbnails img {
@@ -102,3 +103,17 @@
   border: 2px solid white;
 }
 /***** /thumbnails *****/
+
+.controls {
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.controls button {
+  padding: 10px;
+  background-color: steelblue;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
