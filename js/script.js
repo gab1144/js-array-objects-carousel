@@ -32,45 +32,71 @@ const slider = el('.slider');
 const thumbnails = el('.thumbnails');
 const container = el('.container');
 
+//genera il tag img all'interno dello slider; ne genera solo 1 e successivamente, per mostrare le varie immagini
+//verrà sostituito il valore di src
 slider.innerHTML += `
   <img id="slider-img" src="" alt="">
 `;
 
+//genera tutte le thumbnails e le inserisce nell'html
 thumbnails.innerHTML += createImgTagsByUrl (images, "thumbnail-item");
 
 const next = el('.btn-chevron.right');
 const prev = el('.btn-chevron.left');
-
 const thumbnailItems = document.getElementsByClassName ('thumbnail-item');
 
+//inizializza il contatore a 0, mostra la prima immagine e evidenzia la prima thumbnail
 let counterImages=0;
 imageSlider(images[counterImages]);
 thumbnailItems[counterImages].classList.add('active');
 
 let autoplay;
 let directionAutoplay= true;
+
+//fa partire l'autoplay
 setAutoplay();
 let playing = true;
-next.addEventListener('click', nextImage);
 
+//al click cambia immagine
+next.addEventListener('click', nextImage);
 prev.addEventListener('click', prevImage);
 
+//al clik inverte l'ordine di scorrimento
 document.getElementById("reverse").addEventListener('click', reverse);
+//al clik interrompe o fa partire l'autoplay
 document.getElementById("play-pause").addEventListener('click', playPause);
 
+/**************************************************
+          FUNCTIONS      
+**************************************************/
 
+/**
+ * Esegue la funzione nextImage a ogni intervallo
+ */
 function setAutoplay() {
   autoplay = setInterval(nextImage, 1000);
 }
 
+/**
+ * Esegue la funzione prevImage a ogni intervallo
+ */
 function setAutoplayReverse() {
   autoplay = setInterval(prevImage, 1000);
 }
 
+/**
+ * Interrompe l'autoplay
+ */
 function clearAutoplay() {
   clearInterval(autoplay);
 }
 
+/**
+ * Genera i tag img partendo da un array e dal nome della classe
+ * @param {*} array Array (contiene tutti gli oggetti per cui bisogna creare il tag img)
+ * @param {*} className String (nome della classe)
+ * @returns String (tutti i tag che sono stati generati)
+ */
 function createImgTagsByUrl (array, className){
   let tags="";
   for (let image of array) {
@@ -81,15 +107,21 @@ function createImgTagsByUrl (array, className){
   return tags;
 }
 
+/**
+ * Mostra l'immagine dell'oggetto image sullo slider
+ * @param {*} image Oggetto immagine (immagine che deve essere mostrata dallo slider)
+ */
 function imageSlider(image){
   document.getElementById("slider-img").src=image.url;
   document.getElementById("country-name").innerText=image.country;
   document.getElementById("description").innerText=image.description;
 }
 
+/**
+ * Mostra l'immagine successiva
+ */
 function nextImage() {
   thumbnailItems[counterImages].classList.remove('active');
-  //mostra l'immagine successiva
   if(counterImages === (images.length - 1)) {
     counterImages=0;
     imageSlider(images[counterImages]);
@@ -100,9 +132,11 @@ function nextImage() {
   }
 }
 
+/**
+ * Mostra l'immagine precedente
+ */
 function prevImage() {
   thumbnailItems[counterImages].classList.remove('active');
-  //mostra l'immagine precedente
   if(counterImages === 0) {
     counterImages=images.length - 1;
     imageSlider(images[counterImages]);
@@ -113,6 +147,9 @@ function prevImage() {
   }
 }
 
+/**
+ * Inverte l'ordine di scorrimento
+ */
 function reverse() {
   clearAutoplay();
   if(directionAutoplay) {
@@ -124,6 +161,11 @@ function reverse() {
   }
 }
 
+/**
+ * Fa partire l'autoplay o lo ferma in base al contenuto di playing:
+ * - se il valore di playing è true vuol dire che lo scorrimento automatico è in esecuzione, quindi lo ferma e mostra la nuova scritta all'interno del bottone;
+ * - se il valore di playing è false vuol dire che lo scorrimento automatico non è in esecuzione, quindi lo fa partire e mostra la nuova scritta all'interno del bottone;
+ */
 function playPause() {
   if(playing) {
     clearAutoplay();
