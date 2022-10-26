@@ -39,7 +39,7 @@ slider.innerHTML += `
 `;
 
 //genera tutte le thumbnails e le inserisce nell'html
-thumbnails.innerHTML += createImgTagsByUrl (images, "thumbnail-item");
+createThumnailImgTagsByUrl(images, "thumbnail-item");
 
 const next = el('.btn-chevron.right');
 const prev = el('.btn-chevron.left');
@@ -97,14 +97,12 @@ function clearAutoplay() {
  * @param {*} className String (nome della classe)
  * @returns String (tutti i tag che sono stati generati)
  */
-function createImgTagsByUrl (array, className){
-  let tags="";
+function createThumnailImgTagsByUrl (array, className){
+  let i=0;
   for (let image of array) {
-    tags += `
-    <img class="${className}" src="${image.url}" alt="${image.country}">
-    `;
+    thumbnails.append(createImg(image, i));
+    i++;
   }
-  return tags;
 }
 
 /**
@@ -176,4 +174,31 @@ function playPause() {
     document.getElementById("play-pause").innerText ="Interrompi lo scorrimento";
     playing = true;
   }
+}
+
+/**
+ * Al click sulla thumbnail viene cambiata l'immagine mostrata
+ * @param {*} event 
+ */
+function clickThumbnail(event) {
+  thumbnailItems[counterImages].classList.remove('active');
+  
+  counterImages = this.idElement;
+  imageSlider(images[counterImages]);
+  thumbnailItems[counterImages].classList.add('active');
+}
+
+/**
+ * Genera un elemento img
+ * @param {*} image Oggetto immagine (oggetto da cui prende tutte le informazioni per creare l'oggetto)
+ * @param {*} id Intero (numero intero che corrispondera al valore dell'id)
+ * @returns 
+ */
+function createImg(image, id) {
+  const imageTag = document.createElement('img');
+  imageTag.className = "thumbnail-item";
+  imageTag.src = image.url;
+  imageTag.idElement = id;
+  imageTag.addEventListener('click', clickThumbnail)
+  return imageTag;
 }
