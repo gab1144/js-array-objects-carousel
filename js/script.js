@@ -50,12 +50,13 @@ thumbnailItems[counterImages].classList.add('active');
 let autoplay;
 let directionAutoplay= true;
 setAutoplay();
-
+let playing = true;
 next.addEventListener('click', nextImage);
 
 prev.addEventListener('click', prevImage);
 
 document.getElementById("reverse").addEventListener('click', reverse);
+document.getElementById("play-pause").addEventListener('click', playPause);
 
 
 function setAutoplay() {
@@ -120,5 +121,17 @@ function reverse() {
   } else {
     setAutoplay();
     directionAutoplay = true;
+  }
+}
+
+function playPause() {
+  if(playing) {
+    clearAutoplay();
+    document.getElementById("play-pause").innerText ="Riprendi lo scorrimento automatico";
+    playing = false;
+  } else {
+    setAutoplay();
+    document.getElementById("play-pause").innerText ="Interrompi lo scorrimento";
+    playing = true;
   }
 }
