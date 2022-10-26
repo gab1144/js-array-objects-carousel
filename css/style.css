@@ -48,11 +48,12 @@
   color: blue;
 }
 /***** bottoni chevron *****/
+
+/***** descrizione immagine *****/
 .slider {
   position: relative;
   height: 300px;
 }
-
 
 .image-description{
   position: absolute;
@@ -68,6 +69,7 @@
 #country-name, #description{
   display: block;
 }
+/***** /descrizione immagine *****/
 
 /***** immagini *****/
 .container img {
@@ -104,6 +106,7 @@
 }
 /***** /thumbnails *****/
 
+/***** bottoni controllo autoplay*****/
 .controls {
   padding: 50px;
   display: flex;
@@ -117,3 +120,4 @@
   border-radius: 5px;
   color: white;
 }
+/***** /bottoni controllo autoplay*****/
